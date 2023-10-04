@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calcular Cuotas</title>
+
+    <!-- Agregamos un script JavaScript -->
+    <script th:inline="javascript">
+        function mostrarNumeroCuotas() {
+            var formaPago = document.getElementById('formaPago');
+            var numeroCuotasDiv = document.getElementById('numeroCuotasDiv');
+
+            // Si la forma de pago es "Cuotas", muestra el campo "Número de Cuotas"; de lo contrario, ocúltalo
+            numeroCuotasDiv.style.display = (formaPago.value === '2') ? 'block' : 'none';
+        }
+    </script>
+</head>
+<body>
+<h2>Calcular Cuotas</h2>
+
+<form th:action="@{/calcular-cuotas}" th:object=estudiante method="post">
+    <label>RUT:</label>
+    <input type="text" th:field=rut required/>
+
+    <label>Forma de Pago:</label>
+    <select id="formaPago" th:field=formaPago onchange="mostrarNumeroCuotas()">
+        <option value="1">Contado</option>
+        <option value="2">Cuotas</option>
+    </select>
+
+    <!-- Nuevo campo para el número de cuotas con un div contenedor -->
+    <div id="numeroCuotasDiv" style="display: none;">
+        <label>Número de Cuotas:</label>
+        <input type="number" th:field=numeroCuotas min="2" max="10" required/>
+    </div>
+
+    <button type="submit">Calcular</button>
+</form>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Estudiantes</title>
+</head>
+<body>
+<h2>Lista de Estudiantes</h2>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>RUT</th>
+        <th>Nombres</th>
+        <th>Apellidos</th>
+        <th>Fecha de Nacimiento</th>
+        <th>Tipo de Colegio</th>
+        <th>Nombre del Colegio</th>
+        <th>Año de Egreso</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Utiliza Thymeleaf para iterar sobre la lista de estudiantes -->
+    <tr th:each="estudiante : ${estudiantes}">
+        <td th:text="${estudiante.rut}"></td>
+        <td th:text="${estudiante.nombres}"></td>
+        <td th:text="${estudiante.apellidos}"></td>
+        <td th:text="${#dates.format(estudiante.fechaNacimiento, 'dd/MM/yyyy')}"></td>
+        <td th:text="${estudiante.tipoColegio}"></td>
+        <td th:text="${estudiante.nombreColegio}"></td>
+        <td th:text="${estudiante.anoEgreso}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

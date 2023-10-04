@@ -15,6 +15,7 @@ public class EstudianteEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
     private String rut;
+    private String nombres;
     private String apellidos;
     private String tipo_colegio;
     private String nombre_colegio;
