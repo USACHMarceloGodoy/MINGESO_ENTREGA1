@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Encabezado... -->
+</head>
+<body>
+
+<h1>Obtener Cuotas por Rut</h1>
+
+<form id="formCuotas">
+    <label for="rut">Rut:</label>
+    <input type="text" name="rut" id="rut" required>
+
+    <br>
+
+    <!-- Corregido el nombre de la función en el evento onclick -->
+    <button type="button" onclick="obtenerCuotasPorRut()">Obtener Cuotas</button>
+</form>
+
+<!-- Resultados obtenidos se mostrarán aquí -->
+<div id="resultado">
+    <h2>Resultado:</h2>
+    <table id="tablaCuotas">
+    </table>
+</div>
+
+<script>
+    function obtenerCuotasPorRut() {
+        const rut = document.getElementById("rut").value;
+
+        // Llamada AJAX para obtener cuotas por Rut
+        fetch(`/cuotas/mostarCuotasPorRut?rut=${rut}`)
+            .then(response => response.json())
+            .then(cuotas => mostrarCuotasEnTabla(cuotas))
+            .catch(error => console.error('Error al obtener cuotas:', error));
+    }
+
+    function mostrarCuotasEnTabla(cuotas) {
+        const tablaCuotas = document.getElementById("tablaCuotas");
+
+        // Limpiar la tabla
+        tablaCuotas.innerHTML = "";
+
+        // Crear encabezados
+        const encabezados = ["ID", "Monto", "Fecha Inicio", "Fecha Vencimiento", "Número Cuota", "Pagado", "Acción"];
+        const encabezadosRow = document.createElement("tr");
+
+        encabezados.forEach(encabezado => {
+            const th = document.createElement("th");
+            th.textContent = encabezado;
+            encabezadosRow.appendChild(th);
+        });
+
+        tablaCuotas.appendChild(encabezadosRow);
+
+        // Llenar la tabla con los datos de las cuotas
+        cuotas.forEach(cuota => {
+            const row = document.createElement("tr");
+
+            // Crear celdas
+            const columnas = [
+                cuota.id,
+                cuota.monto,
+                cuota.fechaInicio,
+                cuota.fechaVencimiento,
+                cuota.numeroCuota,
+                cuota.pagado,
+                `<button onclick="cambiarEstado(${cuota.id})">Cambiar Estado</button>`
+            ];
+
+            columnas.forEach(columna => {
+                const td = document.createElement("td");
+                td.innerHTML = columna;
+                row.appendChild(td);
+            });
+
+            tablaCuotas.appendChild(row);
+        });
+    }
+
+    function cambiarEstado(idCuota) {
+        // Llamada AJAX para cambiar el estado de la cuota
+        fetch(`/cuotas/actualizarEstadoDePago/${idCuota}?pagado=true`, { method: 'POST' })
+            .then(response => response.json())
+            .then(resultado => console.log(resultado))
+            .catch(error => console.error('Error al cambiar el estado de pago:', error));
+    }
+</script>
+</body>
+</html>
