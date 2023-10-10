@@ -1,9 +1,11 @@
 package com.usach.app1_mingeso.entities;
-import java.time.LocalDate;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.Date;
 
 @Entity
 @Table(name = "cuotas")
@@ -11,14 +13,25 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CuotaEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(unique = true, nullable = false)
-    private int id_cuota;
+    @Column(name = "id_cuota", unique = true, nullable = false)
+    private int id;
+
     private float monto;
-    private LocalDate fecha_inicio;
-    private LocalDate fecha_vencimiento;
-    private int numero_cuota;
+
+    @Column(name = "fecha_inicio")
+    private Date fechaInicio;
+
+    @Column(name = "fecha_vencimiento")
+    private Date fechaVencimiento;
+
+    @Column(name = "numero_cuota")
+    private int numeroCuota;
+
     private boolean pagado;
-    private String rut_estudiante;
+
+    @Column(name = "rut_estudiante")
+    private String rutEstudiante;
 }

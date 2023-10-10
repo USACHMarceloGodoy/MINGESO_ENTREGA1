@@ -29,7 +29,7 @@ public class EstudianteServices {
         if (formaPago == 1){
             return  (arancel * 0.5);
         }
-        String tipo = estudiante.getTipo_colegio();
+        String tipo = estudiante.getTipoColegio();
         //Descuento respecto al colegio de procedencia
         if (tipo == "Municipal"){
             descuento = 0.2;
@@ -40,7 +40,7 @@ public class EstudianteServices {
         LocalDate fechaActual = LocalDate.now();
         int anoActual = fechaActual.getYear();
         //descuento por fecha
-        int anoSalida = estudiante.getAno_egreso();
+        int anoSalida = estudiante.getAnoEgreso();
         //descuento por año
         if (anoActual-anoSalida < 1){
             descuento = descuento + 0.15;
@@ -63,4 +63,5 @@ public class EstudianteServices {
         }
         return (arancel * (1-descuento))/cuotas;
     }
+
 }

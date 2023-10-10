@@ -9,27 +9,35 @@
 <body>
 <h2>Agregar Estudiante</h2>
 
-<form th:action="@{/estudiantes}" th:object="${estudiantes}" method="post">
-    <label for="rut">RUT:</label>
-    <input type="text" id="rut" name="rut" th:field="rut" required>
+<form th:action="@{/estudiantes/agregar}" th:object="${estudiante}" method="post">
+    <fieldset>
+        <legend>Datos Personales</legend>
 
-    <label for="nombres">Nombres:</label>
-    <input type="text" id="nombres" name="nombres" th:field="nombres" required>
+        <label for="rut">RUT:</label>
+        <input type="text" id="rut" name="rut" th:field="*{rut}" required>
 
-    <label for="apellidos">Apellidos:</label>
-    <input type="text" id="apellidos" name="apellidos" th:field="apellidos" required>
+        <label for="nombres">Nombres:</label>
+        <input type="text" id="nombres" name="nombres" th:field="*{nombres}" required>
 
-    <label for="tipoColegio">Tipo de Colegio:</label>
-    <input type="text" id="tipoColegio" name="tipoColegio" th:field="tipo_colegio" required>
+        <label for="apellidos">Apellidos:</label>
+        <input type="text" id="apellidos" name="apellidos" th:field="*{apellidos}" required>
 
-    <label for="nombreColegio">Nombre del Colegio:</label>
-    <input type="text" id="nombreColegio" name="nombreColegio" th:field="nombre_colegio" required>
+        <label for="fechaNacimiento">Fecha de Nacimiento:</label>
+        <input type="date" id="fechaNacimiento" name="fechaNacimiento" th:field="*{fechaNacimiento}" required>
+    </fieldset>
 
-    <label for="anoEgreso">Año de Egreso:</label>
-    <input type="number" id="anoEgreso" name="anoEgreso" th:field="ano_egreso" required>
+    <fieldset>
+        <legend>Datos Académicos</legend>
 
-    <label for="fechaNacimiento">Fecha de Nacimiento:</label>
-    <input type="date" id="fechaNacimiento" name="fechaNacimiento" th:field="fecha_nacimiento" required>
+        <label for="tipoColegio">Tipo de Colegio:</label>
+        <input type="text" id="tipoColegio" name="tipoColegio" th:field="*{tipoColegio}" required>
+
+        <label for="nombreColegio">Nombre del Colegio:</label>
+        <input type="text" id="nombreColegio" name="nombreColegio" th:field="*{nombreColegio}" required>
+
+        <label for="anoEgreso">Año de Egreso:</label>
+        <input type="number" id="anoEgreso" name="anoEgreso" th:field="*{anoEgreso}" required>
+    </fieldset>
 
     <button type="submit">Guardar Estudiante</button>
 </form>

@@ -1,16 +1,15 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Estudiantes</title>
 </head>
 <body>
+<!-- Contenido de la página -->
 <h2>Lista de Estudiantes</h2>
 
+<!-- Tabla para mostrar la lista de estudiantes -->
 <table border="1">
     <thead>
+    <!-- Encabezados de la tabla -->
     <tr>
         <th>RUT</th>
         <th>Nombres</th>
@@ -24,6 +23,7 @@
     <tbody>
     <!-- Utiliza Thymeleaf para iterar sobre la lista de estudiantes -->
     <tr th:each="estudiante : ${estudiantes}">
+        <!-- Celdas de la tabla con datos del estudiante -->
         <td th:text="${estudiante.rut}"></td>
         <td th:text="${estudiante.nombres}"></td>
         <td th:text="${estudiante.apellidos}"></td>
@@ -36,3 +36,4 @@
 </table>
 </body>
 </html>
+

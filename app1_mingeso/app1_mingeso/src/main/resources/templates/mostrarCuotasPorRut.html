@@ -29,13 +29,14 @@
         const rut = document.getElementById("rut").value;
 
         // Llamada AJAX para obtener cuotas por Rut
-        fetch(`/cuotas/mostarCuotasPorRut?rut=${rut}`)
+        fetch(`http://localhost:8090/obtenerCuotasPorRut?rut=${rut}`)
             .then(response => response.json())
             .then(cuotas => mostrarCuotasEnTabla(cuotas))
             .catch(error => console.error('Error al obtener cuotas:', error));
     }
 
     function mostrarCuotasEnTabla(cuotas) {
+        console.log(cuotas)
         const tablaCuotas = document.getElementById("tablaCuotas");
 
         // Limpiar la tabla
@@ -80,9 +81,14 @@
 
     function cambiarEstado(idCuota) {
         // Llamada AJAX para cambiar el estado de la cuota
-        fetch(`/cuotas/actualizarEstadoDePago/${idCuota}?pagado=true`, { method: 'POST' })
+        fetch(`/actualizarEstadoDePago/${idCuota}?pagado=true`, { method: 'POST' })
             .then(response => response.json())
-            .then(resultado => console.log(resultado))
+            .then(resultado => {
+                console.log(resultado);
+
+                // Recargar la página después de cambiar el estado de pago
+                location.reload();
+            })
             .catch(error => console.error('Error al cambiar el estado de pago:', error));
     }
 </script>

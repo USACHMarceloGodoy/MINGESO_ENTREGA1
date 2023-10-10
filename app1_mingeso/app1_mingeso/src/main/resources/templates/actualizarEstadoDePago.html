@@ -2,9 +2,28 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>$Title$</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Actualizar Estado de Pago</title>
 </head>
 <body>
-$END$
+
+<h1>Actualizar Estado de Pago</h1>
+
+<form action="/cuotas/actualizarEstadoDePago/{idCuota}" method="post">
+  <!-- Cambia {idCuota} por el valor real de la cuota que deseas actualizar -->
+  <input type="hidden" name="idCuota" value="{idCuota}">
+
+  <label for="pagado">Estado de Pago:</label>
+  <select name="pagado" id="pagado">
+    <option value="true">Pagado</option>
+    <option value="false">No Pagado</option>
+  </select>
+
+  <br>
+
+  <button type="submit">Actualizar Estado de Pago</button>
+</form>
+
 </body>
 </html>
+<!--         <th>Estado de Pago</th> -->

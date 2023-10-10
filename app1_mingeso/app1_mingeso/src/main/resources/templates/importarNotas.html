@@ -1,10 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Importar Notas desde CSV</title>
 </head>
 <body>
-$END$
+
+<h2>Importar Notas desde CSV</h2>
+
+<form action="/api/notas/importar-csv" method="post" enctype="multipart/form-data">
+    <label for="file">Seleccione un archivo CSV:</label>
+    <input type="file" id="file" name="file" accept=".csv" required>
+    <br>
+    <button type="submit">Importar</button>
+</form>
+
 </body>
 </html>
