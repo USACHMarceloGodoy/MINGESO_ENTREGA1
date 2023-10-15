@@ -9,26 +9,26 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping
+@RequestMapping("/estudiantes")
 public class EstudianteController {
 
     @Autowired
     EstudianteServices estudianteServices;
 
-    @GetMapping("/estudiantes")
+    @GetMapping
     public String list(Model model) {
         Iterable<EstudianteEntity> estudiantes = estudianteServices.obtenerEstudiantes();
         model.addAttribute("estudiantes", estudiantes);
         return "estudiantes";
     }
 
-    @GetMapping("/estudiantes/agregar")
+    @GetMapping("/agregar")
     public String mostrarFormulario(Model model) {
         model.addAttribute("estudiante", new EstudianteEntity());
         return "agregarEstudiante";
     }
 
-    @PostMapping("/estudiantes/agregar")
+    @PostMapping("/agregar")
     public String agregarEstudiante(@ModelAttribute("estudiante") EstudianteEntity estudiante, BindingResult result) {
         if (result.hasErrors()) {
             return "agregarEstudiante";
@@ -37,11 +37,31 @@ public class EstudianteController {
         return "redirect:/estudiantes";
     }
 
-    @PostMapping("/estudiantes/calcular-cuotas")
-    public String calcularCuotas(@ModelAttribute("estudiante") EstudianteEntity estudiante,
-                                 @RequestParam int formaPago, Model model) {
-        double cuotaCalculada = estudianteServices.calcularCuotas(estudiante, formaPago);
-        model.addAttribute("cuotaCalculada", cuotaCalculada);
-        return "resultadoCuotas";
+    @GetMapping("/calcular-cuotas")
+    public String mostrarPaginaCalcularCuotas(Model model) {
+        // Create a new EstudianteEntity to bind the form
+        model.addAttribute("estudiante", new EstudianteEntity());
+        return "calcularCuotas";
+    }
+
+    @PostMapping("/calcular-cuotas")
+    public String calcularCuotas(@ModelAttribute("estudiante") EstudianteEntity estudiante, BindingResult result) {
+        if (result.hasErrors()) {
+            return "calcularCuotas";
+        }
+        // Handle calculation logic here
+        return "redirect:/estudiantes";
+    }
+    //obtener planilla de cuotas
+    @GetMapping("/planilla/{rut}")
+    public String getPlanillaEstudiante(@PathVariable("rut") String rut, Model model) {
+        EstudianteEntity estudiante = estudianteServices.obtenerPorRut(rut);
+
+        if (estudiante != null) {
+            model.addAttribute("estudiante", estudiante);
+            return "planilla";
+        }
+        return "redirect:/estudiantes";
     }
 }
+

@@ -1,0 +1,67 @@
+version: "3.8"
+services:
+  postgreSQL-db:
+    image: postgres:latest
+    restart: always
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: postgre
+    ports:
+      - "5432:5432"
+  nginx:
+    image: nginx:latest
+    container_name: nginx-proxy
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+    depends_on:
+      - app1
+      - app2
+      - app3
+  app1:
+    container_name: WebAppPEP11
+    image: marcelogodoy0110/webapp1
+    ports:
+      - "8091:8090"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgreSQL-db:5432/WebAppPEP1?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+      - SPRING_DATASOURCE_USERNAME= postgres
+      - SPRING_DATASOURCE_PASSWORD= 1234
+    deploy:
+      restart_policy:
+        condition: on-failure
+    depends_on:
+      - postgreSQL-db
+  app2:
+    container_name: WebAppPEP12
+    image: marcelogodoy0110/webapp1
+    ports:
+      - "8092:8090"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgreSQL-db:5432/WebAppPEP1?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+      - SPRING_DATASOURCE_USERNAME= postgres
+      - SPRING_DATASOURCE_PASSWORD= 1234
+    deploy:
+      restart_policy:
+        condition: on-failure
+    depends_on:
+      - postgreSQL-db
+  app3:
+    container_name: WebAppPEP13
+    image: marcelogodoy0110/webapp1
+    ports:
+      - "8093:8090"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgreSQL-db:5432/WebAppPEP1?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+      - SPRING_DATASOURCE_USERNAME= postgres
+      - SPRING_DATASOURCE_PASSWORD= 1234
+    deploy:
+      restart_policy:
+        condition: on-failure
+    depends_on:
+      - postgreSQL-db

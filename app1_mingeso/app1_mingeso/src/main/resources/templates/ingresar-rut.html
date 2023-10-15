@@ -1,0 +1,17 @@
+<!-- src/main/resources/templates/ingresar-rut.html -->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ingresar RUT</title>
+</head>
+<body>
+<h1>Ingrese el RUT del Estudiante</h1>
+<form method="post" action="/cuota-plantilla/generar">
+  <label for="rut">RUT:</label>
+  <input type="text" id="rut" name="rut" required>
+  <button type="submit">Generar Plantilla</button>
+</form>
+</body>
+</html>

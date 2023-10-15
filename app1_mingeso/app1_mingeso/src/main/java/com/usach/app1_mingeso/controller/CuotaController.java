@@ -23,10 +23,23 @@ public class CuotaController {
     public List<CuotaEntity> obtenerCuotasPorRut(@RequestParam(value = "rut") String rut) {
         return cuotaServices.obtenerCuotasPorRut(rut);
     }
-
     @PostMapping("/actualizarEstadoDePago/{idCuota}")
     public void actualizarEstadoDePago(@PathVariable int idCuota) {
         cuotaServices.actualizarEstadoDePago(idCuota);
     }
+    @GetMapping("/aplicarIntereses")
+    public String aplicarIntereses() {
+        try {
+            cuotaServices.aplicarIntereses();
+            return "redirect:/mostrarCuotasPorRut";
+        } catch (Exception e) {
+            // Manejo de excepciones
+            return "redirect:/pagina-de-error.html";
+        }
+    }
+
+
+
+
 }
 

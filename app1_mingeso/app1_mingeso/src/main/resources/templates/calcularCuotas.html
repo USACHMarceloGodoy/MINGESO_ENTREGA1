@@ -20,12 +20,13 @@
 <body>
 <h2>Calcular Cuotas</h2>
 
-<form th:action="@{/calcular-cuotas}" th:object=estudiante method="post">
+<form th:action="@{/calcular-cuotas}" th:object="${estudiante}" method="post">
     <label>RUT:</label>
-    <input type="text" th:field=rut required/>
+    <input type="text" th:field="${estudiante.rut}" required/>
 
     <label>Forma de Pago:</label>
-    <select id="formaPago" th:field=formaPago onchange="mostrarNumeroCuotas()">
+    <!-- Remove th:field attribute -->
+    <select id="formaPago" name="formaPago" onchange="mostrarNumeroCuotas()">
         <option value="1">Contado</option>
         <option value="2">Cuotas</option>
     </select>
@@ -33,10 +34,11 @@
     <!-- Nuevo campo para el número de cuotas con un div contenedor -->
     <div id="numeroCuotasDiv" style="display: none;">
         <label>Número de Cuotas:</label>
-        <input type="number" th:field=numeroCuotas min="2" max="10" required/>
+        <input type="number" name="numeroCuotas" min="2" max="10" required/>
     </div>
 
     <button type="submit">Calcular</button>
 </form>
 </body>
 </html>
+

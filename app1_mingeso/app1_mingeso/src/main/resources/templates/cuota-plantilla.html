@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuota Plantilla</title>
+</head>
+<body>
+<h1>Ingresar RUT para Generar Cuota Plantilla</h1>
+
+<form th:action="@{/cuota-plantilla/generar}" method="get" onsubmit="generarCuotaPlantilla(event)">
+    <label for="rut">RUT:</label>
+    <input type="text" id="rut" name="rut" required>
+    <button type="submit" name="submit">Generar Plantilla</button>
+</form>
+
+<h1>Datos Generados por CuotaPlantilla</h1>
+<p>Nombre: <span id="nombre"></span></p>
+<p>RUT: <span id="rutGenerado"></span></p>
+<p>Promedio: <span th:text="${cuotaPlantilla?.promedio} ?: 'N/A'"></span></p>
+<p>Examenes Rendidos: <span th:text="${cuotaPlantilla?.examenes_rendidos} ?: 'N/A'"></span></p>
+<p>Arancel: <span th:text="${cuotaPlantilla?.arancel} ?: 'N/A'"></span></p>
+<p>Tipo de Pago: <span th:text="${cuotaPlantilla?.tipo_pago} ?: 'N/A'"></span></p>
+<p>Número de Cuotas: <span th:text="${cuotaPlantilla?.numero_cuotas} ?: 'N/A'"></span></p>
+<p>Cuotas Pagadas: <span th:text="${cuotaPlantilla?.cuotas_pagadas} ?: 'N/A'"></span></p>
+<p>Monto Pagado: <span th:text="${cuotaPlantilla?.monto_pagado} ?: 'N/A'"></span></p>
+<p>Último Pago: <span th:text="${cuotaPlantilla?.ultimo_pago} ?: 'N/A'"></span></p>
+<p>Saldo Restante: <span th:text="${cuotaPlantilla?.saldo_restante} ?: 'N/A'"></span></p>
+
+<script>
+    function generarCuotaPlantilla(event) {
+        event.preventDefault();
+
+        const rut = document.getElementById("rut").value;
+
+        fetch(`/cuota-plantilla/generar?rut=${rut}`)
+            .then(response => response.json())
+            .then(cuotaPlantilla => mostrarDatosCuotaPlantilla(cuotaPlantilla))
+            .catch(error => console.error('Error al generar la plantilla:', error));
+    }
+        function mostrarDatosCuotaPlantilla(cuotaPlantilla) {
+        document.getElementById("nombre").innerText = cuotaPlantilla.nombre || 'N/A';
+        document.getElementById("rutGenerado").innerText = cuotaPlantilla.rut || 'N/A';
+        document.getElementById("promedio").innerText = cuotaPlantilla.promedio || 'N/A';
+        document.getElementById("examenesRendidos").innerText = cuotaPlantilla.examenes_rendidos || 'N/A';
+        document.getElementById("arancel").innerText = cuotaPlantilla.arancel || 'N/A';
+        document.getElementById("tipoPago").innerText = cuotaPlantilla.tipo_pago || 'N/A';
+        document.getElementById("numeroCuotas").innerText = cuotaPlantilla.numero_cuotas || 'N/A';
+        document.getElementById("cuotasPagadas").innerText = cuotaPlantilla.cuotas_pagadas || 'N/A';
+        document.getElementById("montoPagado").innerText = cuotaPlantilla.monto_pagado || 'N/A';
+        document.getElementById("ultimoPago").innerText = cuotaPlantilla.ultimo_pago || 'N/A';
+        document.getElementById("saldoRestante").innerText = cuotaPlantilla.saldo_restante || 'N/A';
+    }
+</script>
+</body>
+</html>
+
+

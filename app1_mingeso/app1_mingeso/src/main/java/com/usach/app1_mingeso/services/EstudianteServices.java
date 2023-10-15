@@ -19,7 +19,9 @@ public class EstudianteServices {
         return estudianteRepository.findAll();
     }
 
-
+    public EstudianteEntity obtenerPorRut(String rut){
+        return estudianteRepository.findByRut(rut);
+    }
 
     public double calcularCuotas(EstudianteEntity estudiante, int formaPago){
         Scanner scanner = new Scanner(System.in);

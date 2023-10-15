@@ -30,8 +30,12 @@ public class CuotaEntity {
     @Column(name = "numero_cuota")
     private int numeroCuota;
 
+    @Column(name = "pagado")
     private boolean pagado;
 
     @Column(name = "rut_estudiante")
     private String rutEstudiante;
+
+
+
 }
